@@ -1,0 +1,34 @@
+# Compiled class files
+*.class
+
+# Log files
+*.log
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# IDE-specific files
+.idea/
+.classpath
+.project
+.settings/
+
+# Target directory
+target/
+
+# Maven artifacts
+*.mvn/
+mvnw
+mvnw.cmd
+
+# Gradle artifacts
+.gradle/
+gradlew
+gradlew.bat
+
+# Generated files
+**/generated-sources/
+**/generated-test-sources/
+.DS_Store
