@@ -1,0 +1,15 @@
+services:
+  postgresdb-orderService:
+    image: postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=zoozoo
+      - POSTGRES_DB=order-service
+    ports:
+      - 5432:5432
+    volumes:
+      - db:/var/lib/postgres
+
+volumes:
+  db:
