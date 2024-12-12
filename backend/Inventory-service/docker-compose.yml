@@ -1,0 +1,15 @@
+services:
+  postgresdb-inventoryService:
+    image: postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=zoozoo
+      - POSTGRES_DB=inventory-service
+    ports:
+      - 5432:5432
+    volumes:
+      - db:/var/lib/postgres
+
+volumes:
+  db:
