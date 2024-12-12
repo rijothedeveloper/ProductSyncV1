@@ -1,6 +1,6 @@
 package com.orangesoft.Inventory_service.service;
 
-import com.orangesoft.Inventory_service.entity.inventory;
+import com.orangesoft.Inventory_service.entity.Inventory;
 import com.orangesoft.Inventory_service.repository.InventoryRepository;
 import org.springframework.stereotype.Service;
 
@@ -12,19 +12,20 @@ public class InventoryService {
         this.inventoryRepository = inventoryRepository;
     }
 
-    public void updateInventory(Long id, Long quantity) {
-        inventoryRepository.findById(id).ifPresent(inventory -> {
+    public void updateInventory(String sku, Long quantity) {
+        inventoryRepository.findBySku(sku).ifPresent(inventory -> {
             inventory.setQuantity(inventory.getQuantity() + quantity);
             inventoryRepository.save(inventory);
         });
+
     }
 
-    public void deleteInventory(Long id) {
-        inventoryRepository.deleteById(id);
+    public void deleteInventory(String sku) {
+        inventoryRepository.deleteBySku(sku);
     }
 
-    public void createInventory(Long id, String sku, Long quantity) {
-        inventoryRepository.save(new inventory(id, sku, quantity));
+    public void createInventory(String sku, Long quantity) {
+        inventoryRepository.save(new Inventory(sku, quantity));
     }
 
     public boolean checkInventory(String sku, Long quantity) {

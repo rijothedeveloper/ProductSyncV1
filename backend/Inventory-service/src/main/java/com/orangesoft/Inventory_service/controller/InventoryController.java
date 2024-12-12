@@ -1,6 +1,7 @@
 package com.orangesoft.Inventory_service.controller;
 
 import com.orangesoft.Inventory_service.service.InventoryService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,17 +18,18 @@ public class InventoryController {
     }
 
     @PutMapping
-    public void updateInventory(@RequestBody Long id, @RequestBody Long quantity) {
-        inventoryService.updateInventory(id, quantity);
+    public void updateInventory(@RequestBody String sku, @RequestBody Long quantity) {
+        inventoryService.updateInventory(sku, quantity);
     }
 
     @PostMapping
-    public void createInventory(@RequestBody Long id, @RequestBody String sku, @RequestBody Long quantity) {
-        inventoryService.createInventory(id, sku, quantity);
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createInventory(@RequestParam String sku, @RequestParam Long quantity) {
+        inventoryService.createInventory(sku, quantity);
     }
 
     @DeleteMapping
-    public void deleteInventory(@RequestBody Long id) {
-        inventoryService.deleteInventory(id);
+    public void deleteInventory(@RequestBody String sku) {
+        inventoryService.deleteInventory(sku);
     }
 }
