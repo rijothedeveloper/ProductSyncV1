@@ -1,8 +1,9 @@
 package com.orangesoft.order_service.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -13,15 +14,20 @@ public class Order {
     private String description;
     private String status;
     private double totalPrice;
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinColumn(name = "orderNo")
+    private List<OrderItem> orderItems = new ArrayList<>();
 
     public Order() {
     }
-    public Order(String orderNo, String name, String description, String status, double totalPrice) {
+
+    public Order(String orderNo, String name, String description, String status, double totalPrice, List<OrderItem> orderItems) {
         this.orderNo = orderNo;
         this.name = name;
         this.description = description;
         this.status = status;
         this.totalPrice = totalPrice;
+        this.orderItems = orderItems;
     }
 
     public String getOrderNo() {
@@ -62,6 +68,14 @@ public class Order {
 
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 }
 
