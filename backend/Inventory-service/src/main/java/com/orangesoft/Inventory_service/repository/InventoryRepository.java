@@ -13,3 +13,5 @@ public interface InventoryRepository extends JpaRepository<Inventory, String> {
     void deleteBySku(String sku);
     boolean existsBySkuAndQuantityGreaterThanEqual(String sku, Long quantity);
 }
+
+

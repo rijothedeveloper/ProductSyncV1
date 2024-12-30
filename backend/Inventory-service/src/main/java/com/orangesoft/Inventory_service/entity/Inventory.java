@@ -5,7 +5,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-
 public class Inventory {
     @Id
     private String sku;

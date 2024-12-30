@@ -3,6 +3,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
+import java.util.List;
+
 @Document(value="product")
 public class Product {
 
@@ -12,14 +14,19 @@ public class Product {
     private String description;
     private double price;
 
+    private String sku;
+    private List<String> imgUrl;
+
     public Product() {
     }
 
-    public Product(String id, String name, String description, double price) {
+    public Product(String id, String name, String description, double price, String sku, List<String> imgUrl) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
+        this.sku = sku;
+        this.imgUrl = imgUrl;
     }
 
     public String getId() {
@@ -52,5 +59,21 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getSku() {
+        return sku;
+    }
+
+    public void setSku(String sku) {
+        this.sku = sku;
+    }
+
+    public List<String> getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(List<String> imgUrl) {
+        this.imgUrl = imgUrl;
     }
 }
