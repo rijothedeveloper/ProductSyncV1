@@ -4,7 +4,7 @@ import com.orangesoft.ProductService.dto.ProductRequest;
 import com.orangesoft.ProductService.dto.ProductResponse;
 import com.orangesoft.ProductService.entity.Product;
 
-public class Mapper {
+public class MapToProductsDto {
     public static ProductResponse productToProductResponse(Product product) {
         return new ProductResponse(product.getName(), product.getDescription(), product.getPrice(), product.getSku(), product.getImgUrl());
     }

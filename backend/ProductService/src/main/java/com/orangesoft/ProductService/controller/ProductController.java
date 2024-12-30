@@ -18,23 +18,36 @@ import java.util.List;
 @Validated
 public class ProductController {
 
-    private IProductService productService;
+    private final IProductService productService;
 
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
 
     @PostMapping
-    //@ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<ProductResponse> addProduct(@Valid  @RequestBody ProductRequest productRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(productService.addProduct(productRequest));
     }
 
     @GetMapping
-//    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<ProductResponse>> getAllProducts() {
-
-//        return productService.getAllProducts();
         return ResponseEntity.status(HttpStatus.OK).body(productService.getAllProducts());
     }
+    @GetMapping("/id/{productId}")
+    public ResponseEntity<ProductResponse> getProductById(@PathVariable String productId) {
+        return ResponseEntity.status(HttpStatus.OK).body(productService.getProductById(productId));
+    }
+    @GetMapping("/sku/{productSku}")
+    public ResponseEntity<ProductResponse> getProductBySku(@PathVariable String productSku) {
+        return ResponseEntity.status(HttpStatus.OK).body(productService.getProductBySku(productSku));
+    }
+    @PutMapping("/sku/{productSku}")
+    public ResponseEntity<ProductResponse> updateProduct(@PathVariable String productSku, @Valid @RequestBody ProductRequest productRequest) {
+        return ResponseEntity.status(HttpStatus.OK).body(productService.updateProduct(productSku, productRequest));
+    }
+    @DeleteMapping("/sku/{productSku}")
+    public ResponseEntity<String> deleteProduct(@PathVariable String productSku) {
+        return ResponseEntity.status(HttpStatus.OK).body(productService.deleteProduct(productSku));
+    }
+
 }

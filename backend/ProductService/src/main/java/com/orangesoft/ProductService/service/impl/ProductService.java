@@ -4,7 +4,7 @@ import com.orangesoft.ProductService.dto.ProductRequest;
 import com.orangesoft.ProductService.dto.ProductResponse;
 import com.orangesoft.ProductService.entity.Product;
 import com.orangesoft.ProductService.exception.ProductNotFoundException;
-import com.orangesoft.ProductService.mapper.Mapper;
+import com.orangesoft.ProductService.mapper.MapToProductsDto;
 import com.orangesoft.ProductService.repository.ProductRepository;
 import com.orangesoft.ProductService.service.IProductService;
 import org.slf4j.Logger;
@@ -15,7 +15,7 @@ import java.util.List;
 
 @Service
 public class ProductService implements IProductService {
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
     private static final Logger logger = LoggerFactory.getLogger(ProductService.class);
 
     public ProductService(ProductRepository productRepository) {
@@ -23,21 +23,44 @@ public class ProductService implements IProductService {
     }
 
     public ProductResponse addProduct(ProductRequest productRequest) {
-        Product product = Mapper.productRequestToProduct(productRequest);
+        Product product = MapToProductsDto.productRequestToProduct(productRequest);
         productRepository.save(product);
         logger.info("Product added successfully");
-        return Mapper.productToProductResponse(product);
+        return MapToProductsDto.productToProductResponse(product);
     }
 
     public List<ProductResponse> getAllProducts() {
         return productRepository.findAll()
                 .stream()
-                .map(Mapper::productToProductResponse)
+                .map(MapToProductsDto::productToProductResponse)
                 .toList();
     }
 
-    public ProductResponse getProductById(String id) throws ProductNotFoundException {
+    public ProductResponse getProductById(String id)  {
         Product product = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Product not found for id: " + id));
-        return Mapper.productToProductResponse(product);
+        return MapToProductsDto.productToProductResponse(product);
+    }
+
+    @Override
+    public ProductResponse getProductBySku(String sku) {
+        Product product = productRepository.findBySku(sku).orElseThrow(() -> new ProductNotFoundException("Product not found for Sku: " + sku));
+        return MapToProductsDto.productToProductResponse(product);
+    }
+
+    @Override
+    public ProductResponse updateProduct(String sku, ProductRequest productRequest) {
+        Product product = productRepository.findBySku(sku).orElseThrow(() -> new ProductNotFoundException("Product not found for Sku: " + sku));
+        product.setName(productRequest.name());
+        product.setPrice(productRequest.price());
+        product.setSku(productRequest.sku());
+        productRepository.save(product);
+        return MapToProductsDto.productToProductResponse(product);
+    }
+
+    @Override
+    public String deleteProduct(String sku) {
+        Product product = productRepository.findById(sku).orElseThrow(() -> new ProductNotFoundException("Product not found for Sku: " + sku));
+        productRepository.delete(product);
+        return "Product with sku "+sku+" deleted successfully";
     }
 }
