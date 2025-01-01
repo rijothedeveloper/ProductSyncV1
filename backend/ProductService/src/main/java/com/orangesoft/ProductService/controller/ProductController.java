@@ -5,6 +5,7 @@ import com.orangesoft.ProductService.dto.ProductResponse;
 import com.orangesoft.ProductService.service.IProductService;
 import com.orangesoft.ProductService.service.impl.ProductService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,11 +14,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping(value = "/api/v1/product", produces = MediaType.APPLICATION_JSON_VALUE)
 @Validated
 public class ProductController {
-
+    @Value("${message.env}")
+    String env;
     private final IProductService productService;
 
     public ProductController(ProductService productService) {
@@ -48,6 +51,11 @@ public class ProductController {
     @DeleteMapping("/sku/{productSku}")
     public ResponseEntity<String> deleteProduct(@PathVariable String productSku) {
         return ResponseEntity.status(HttpStatus.OK).body(productService.deleteProduct(productSku));
+    }
+
+    @GetMapping("/env")
+    public ResponseEntity<String> getEnv() {
+        return ResponseEntity.status(HttpStatus.OK).body(env);
     }
 
 }

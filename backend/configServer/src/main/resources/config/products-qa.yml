@@ -1,0 +1,7 @@
+spring:
+  data:
+    mongodb:
+      uri: 'mongodb+srv://rijo:pass@productcluster.don7k.mongodb.net/product-service?retryWrites=true&w=majority&appName=productCluster'
+
+message:
+  env: "qa environment"

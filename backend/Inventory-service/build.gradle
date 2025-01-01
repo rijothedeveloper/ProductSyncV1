@@ -6,6 +6,9 @@ plugins {
 
 group = 'com.orangesoft'
 version = '0.0.1-SNAPSHOT'
+ext{
+	project_name = 'inventory-service'
+}
 
 java {
 	toolchain {
@@ -33,4 +36,8 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+bootBuildImage {
+	imageName = 'com.orangesoft/'+project_name+':latest'
 }

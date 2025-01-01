@@ -12,7 +12,7 @@ public record ProductRequest(
         String name,
         @NotEmpty(message = "Product Description is required")
         String description,
-        @Range(min=0, max=90, message = "Product Price is required")
+        @Range(min=0, max=9000, message = "Product Price is required")
         double price,
         @NotEmpty(message = "Product SKU is required")
         String sku,

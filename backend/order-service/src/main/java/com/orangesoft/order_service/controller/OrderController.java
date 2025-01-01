@@ -2,10 +2,10 @@ package com.orangesoft.order_service.controller;
 
 import com.orangesoft.order_service.dto.OrderRequest;
 import com.orangesoft.order_service.dto.OrderResponse;
-import com.orangesoft.order_service.entity.Order;
-import com.orangesoft.order_service.service.OrderService;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.orangesoft.order_service.service.impl.OrderService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,9 +25,14 @@ public class OrderController  {
         return orderService.getAllOrders();
     }
 
+    @GetMapping("/{orderNo}")
+    public ResponseEntity<OrderResponse> getOrder(@PathVariable String orderNo) {
+        return ResponseEntity.status(HttpStatus.OK).body(orderService.getOrder(orderNo));
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public OrderResponse addOrder(@RequestBody OrderRequest orderRequest) {
+    public OrderResponse addOrder(@Valid @RequestBody OrderRequest orderRequest) {
         return orderService.addOrder(orderRequest);
     }
 }

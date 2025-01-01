@@ -10,7 +10,6 @@ import java.util.List;
 public class Order {
     @Id
     private String orderNo;
-    private String name;
     private String description;
     private String status;
     private double totalPrice;
@@ -21,9 +20,8 @@ public class Order {
     public Order() {
     }
 
-    public Order(String orderNo, String name, String description, String status, double totalPrice, List<OrderItem> orderItems) {
+    public Order(String orderNo, String description, String status, double totalPrice, List<OrderItem> orderItems) {
         this.orderNo = orderNo;
-        this.name = name;
         this.description = description;
         this.status = status;
         this.totalPrice = totalPrice;
@@ -36,14 +34,6 @@ public class Order {
 
     public void setOrderNo(String orderNo) {
         this.orderNo = orderNo;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getDescription() {

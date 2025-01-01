@@ -38,11 +38,15 @@ class OrderServiceApplicationTests {
 	void shouldCreateOrder() {
 		String requestBody = """
 				{
-				  "name":"iphone 16",
-				  "description": "sample desc",
-				  "status": "not filled",
-				  "totalPrice": 25
-				}
+				     "description": "sample description",
+				     "status": "not filled",
+				     "totalPrice": 50,
+				     "orderItems": [{
+				         "sku": "samplesku",
+				         "quantity": 10,
+				         "price" :10
+				     }]
+				 }
 				""";
 		RestAssured.given()
 				.contentType("application/json")
@@ -51,8 +55,8 @@ class OrderServiceApplicationTests {
 				.post("/api/v1/order")
 				.then()
 				.statusCode(201)
-				.body("name", Matchers.equalTo("iphone 16"))
-				.body("description", Matchers.equalTo("sample desc"));
+				.body("description", Matchers.equalTo("sample description"));
+
 	}
 
 }

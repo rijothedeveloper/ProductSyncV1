@@ -2,6 +2,8 @@ server:
   port: 8083
 
 spring:
+  application:
+    name: "order-service"
   datasource:
     url: jdbc:postgresql://localhost:5433/order-service
     username: root
