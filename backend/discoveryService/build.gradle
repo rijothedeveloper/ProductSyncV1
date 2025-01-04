@@ -1,15 +1,11 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.4.0'
-	id 'io.spring.dependency-management' version '1.1.6'
+	id 'org.springframework.boot' version '3.4.1'
+	id 'io.spring.dependency-management' version '1.1.7'
 }
 
 group = 'com.orangesoft'
 version = '0.0.1-SNAPSHOT'
-ext{
-	project_name = 'inventory-service'
-	set('springCloudVersion', "2024.0.0")
-}
 
 java {
 	toolchain {
@@ -21,20 +17,17 @@ repositories {
 	mavenCentral()
 }
 
+ext {
+	project_name = 'discovery-service'
+	set('springCloudVersion', "2024.0.0")
+}
+
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.flywaydb:flyway-core'
-	implementation 'org.flywaydb:flyway-database-postgresql'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.cloud:spring-cloud-starter-config'
-	runtimeOnly 'org.postgresql:postgresql'
+	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.boot:spring-boot-testcontainers'
-	testImplementation 'org.testcontainers:junit-jupiter'
-	testImplementation 'org.testcontainers:postgresql'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-	testImplementation 'io.rest-assured:rest-assured:5.4.0'
 }
 
 dependencyManagement {

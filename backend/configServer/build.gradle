@@ -7,6 +7,11 @@ plugins {
 group = 'com.orangesoft'
 version = '0.0.1-SNAPSHOT'
 
+ext{
+	project_name = 'configserver'
+	set('springCloudVersion', "2024.0.0")
+}
+
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(21)
@@ -15,10 +20,6 @@ java {
 
 repositories {
 	mavenCentral()
-}
-
-ext {
-	set('springCloudVersion', "2024.0.0")
 }
 
 dependencies {
@@ -36,4 +37,8 @@ dependencyManagement {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+bootBuildImage {
+	imageName = 'com.orangesoft/'+project_name+':latest'
 }

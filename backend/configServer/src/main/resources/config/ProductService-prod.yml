@@ -6,4 +6,4 @@ spring:
 
 
 message:
-  env: "prod environment"
+  env: "prod environment from config servber"

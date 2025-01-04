@@ -4,6 +4,7 @@ import com.orangesoft.order_service.dto.OrderRequest;
 import com.orangesoft.order_service.dto.OrderResponse;
 import com.orangesoft.order_service.service.impl.OrderService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/order")
 public class OrderController  {
+    @Value("${message.env}")
+    String env;
     private OrderService orderService;
 
     public OrderController(OrderService orderService) {
@@ -34,5 +37,10 @@ public class OrderController  {
     @ResponseStatus(HttpStatus.CREATED)
     public OrderResponse addOrder(@Valid @RequestBody OrderRequest orderRequest) {
         return orderService.addOrder(orderRequest);
+    }
+
+    @GetMapping("/env")
+    public ResponseEntity<String> getEnv() {
+        return ResponseEntity.status(HttpStatus.OK).body(env);
     }
 }

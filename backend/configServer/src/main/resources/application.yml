@@ -3,12 +3,16 @@ server:
 management:
   endpoints:
     web:
-      base-path: "/admin"
       exposure:
-        include: "*"
+        include: "health"
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
   endpoint:
-    env:
-      post:
+    health:
+      probes:
         enabled: true
 spring:
   application:

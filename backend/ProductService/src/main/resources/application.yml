@@ -7,5 +7,9 @@ spring:
     mongodb:
       uri: 'mongodb+srv://rijo:pass@productcluster.don7k.mongodb.net/product-service?retryWrites=true&w=majority&appName=productCluster'
 
+  config:
+#    import: "configserver:http://localhost:8888"
+    import: "optional:configserver:http://localhost:8888"
+
 message:
   env: "dev environment"
