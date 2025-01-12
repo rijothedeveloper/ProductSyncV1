@@ -1,5 +1,7 @@
 server:
   port: 8081
+
+
 spring:
   application:
     name: "ProductService"
@@ -11,5 +13,38 @@ spring:
 #    import: "configserver:http://localhost:8888"
     import: "optional:configserver:http://localhost:8888"
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true
+  info:
+    env:
+      enabled: true
+
+endpoint:
+  shutdown:
+    enabled: true
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:9090/eureka/
+
+info:
+  app:
+    name: "ProductService"
+    description: "Product Service"
+    version: "1.0"
+
+
 message:
   env: "dev environment"
+

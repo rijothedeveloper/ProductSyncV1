@@ -1,9 +1,5 @@
 
 services:
-#  microservice-configserver-config:
-#    environment:
-#      SPRING_PROFILES_ACTIVE: default
-#      SPRING_CONFIG_IMPORT: configserver:http://configserver:8888/
   orderService-postgresdb:
     image: postgres
     restart: unless-stopped
@@ -39,65 +35,98 @@ services:
     volumes:
       - db:/var/lib/inventoryPostgres
 
-  configserver:
-    image: "com.orangesoft/configserver:latest"
-    container_name: "configserver"
-    ports:
-      - "8888:8888"
+#  configserver:
+#    platform: linux/amd64
+#    image: "com.orangesoft/configserver:latest"
+#    container_name: "configserver"
+#    ports:
+#      - "8888:8888"
 #    healthcheck:
-#      test: "curl --fail --silent http://localhost:8888/actuator/health/readiness | grep UP || exit 1"
-#      interval: 2s
-#      timeout: 3s
-#      retries: 5
-#      start_period: 2s
-  discoveryService:
-    image: "com.orangesoft/discovery-service:latest"
-    container_name: "discovery-service"
-    ports:
-      - "9090:9090"
-
-
-  productService:
-    image: "com.orangesoft/product-service:latest"
-    container_name: "product-service"
-    ports:
-      - "8081:8081"
-    environment:
-      SPRING_PROFILES_ACTIVE: default
-      SPRING_CONFIG_IMPORT: optional:configserver:http://configserver:8888/
+##      test: ["CMD", "curl", "-f", "http://localhost:8888/actuator/health"]
+##      test: "curl --fail --silent localhost:8071/actuator/health/readiness | grep UP || exit 1"
+##      interval: 30s
+##      timeout: 10s
+##      retries: 3
+#
+#      test: "curl --fail --silent localhost:8888/actuator/health/readiness | grep UP || exit 1"
+#      interval: 10s
+#      timeout: 5s
+#      retries: 10
+#      start_period: 10s
+#
+#  discoveryService:
+#    platform: linux/amd64
+#    image: "com.orangesoft/discovery-service:latest"
+#    container_name: "discovery-service"
+#    ports:
+#      - "9090:9090"
+#    environment:
+#      SPRING_APPLICATION_NAME: "discovery-service"
+#
+#    healthcheck:
+#      test: "curl --fail --silent localhost:9090/actuator/health/readiness | grep UP || exit 1"
+#      interval: 10s
+#      timeout: 5s
+#      retries: 10
+#      start_period: 10s
 #    depends_on:
-#        configserver:
-#            condition: service_healthy
-
-
-  orderService:
-    image: "com.orangesoft/order-service:latest"
-    container_name: "order-service"
-    ports:
-      - "8083:8083"
-    environment:
-      SPRING_DATASOURCE_URL: "jdbc:postgresql://orderService-postgresdb:5432/order-service"
-    depends_on:
-      orderService-postgresdb:
-        condition: service_healthy
 #      configserver:
 #        condition: service_healthy
-
-  inventoryService:
-    image: "com.orangesoft/inventory-service:latest"
-    container_name: "inventory-service"
-    ports:
-      - "8084:8084"
-    environment:
-      SPRING_DATASOURCE_URL: "jdbc:postgresql://inventoryService-postgresdb:5432/inventory-service"
-    depends_on:
-      inventoryService-postgresdb:
-        condition: service_healthy
+#
+#
+#
+#  productService:
+#    image: "com.orangesoft/product-service:latest"
+#    container_name: "product-service"
+#    ports:
+#      - "8081:8081"
+#    environment:
+#      SPRING_PROFILES_ACTIVE: default
+#      SPRING_CONFIG_IMPORT: optional:configserver:http://configserver:8888/
+#      eureka.client.serviceUrl.defaultZone: http://discoveryService:9090/eureka/
+#
+#    depends_on:
 #      configserver:
 #        condition: service_healthy
-
+#      discoveryService:
+#        condition: service_healthy
+#
+#
+#  orderService:
+#    image: "com.orangesoft/order-service:latest"
+#    container_name: "order-service"
+#    ports:
+#      - "8083:8083"
+#    environment:
+#      SPRING_DATASOURCE_URL: "jdbc:postgresql://orderService-postgresdb:5432/order-service"
+#    depends_on:
+#      orderService-postgresdb:
+#        condition: service_healthy
+#      configserver:
+#        condition: service_healthy
+#      discoveryService:
+#        condition: service_healthy
+#
+#  inventoryService:
+#    image: "com.orangesoft/inventory-service:latest"
+#    container_name: "inventory-service"
+#    ports:
+#      - "8084:8084"
+#    environment:
+#      SPRING_DATASOURCE_URL: "jdbc:postgresql://inventoryService-postgresdb:5432/inventory-service"
+#    depends_on:
+#      inventoryService-postgresdb:
+#        condition: service_healthy
+#      configserver:
+#        condition: service_healthy
+#      discoveryService:
+#        condition: service_healthy
+#
+#
 volumes:
     db:
-
-
-
+#
+#
+#
+#
+#
