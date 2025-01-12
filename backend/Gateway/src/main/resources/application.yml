@@ -1,0 +1,45 @@
+server:
+  port: 7070
+
+spring:
+  application:
+    name: "Gateway"
+  config:
+    #    import: "configserver:http://localhost:8888"
+    import: "optional:configserver:http://localhost:8888"
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  info:
+    env:
+      enabled: true
+  endpoint:
+    gateway:
+      access: unrestricted
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: "http://localhost:9090/eureka/"
+
+info:
+  app:
+    name: "Gateway"
+    description: "Gateway Service"
+    version: "1.0"
